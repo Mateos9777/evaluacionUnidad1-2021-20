@@ -2,6 +2,8 @@
 #include "student.h"
 #include <string.h>
 
+void feature4(FILE *fin, int **parr, int *length, char **op);
+
 // lee la primer línea del archivo de entrada y la escribe en la primer línea del archivo de salida.
 void feature1(FILE *fin, FILE *fout)
 {
@@ -53,18 +55,44 @@ void feature2(FILE *fin, FILE *fout)
 void feature3(FILE *fin, FILE *fout)
 {
     int contador = 0;
-    char buffer[10];
+    char buffer[10]; // tamano del numero que queremos capturar 10
     int resultado = 0, valoractual = 0;
     char *estado = NULL;
     estado = fgets(buffer, sizeof(buffer), fin);
     if (estado != NULL)
     {
         for (contador = 0; contador <= sizeof(buffer); contador++)
-        {   fscanf(fin , "%d",&valoractual);
+        {  
+            fscanf(fin , "%d",&valoractual);
+           // fprintf(fout,"%d",valoractual);
             resultado = resultado + valoractual; 
+            
         }
      }
-    
     fprintf(fout, "%d", resultado);
 }
+//lee el arreglo de enteros de la cuarta línea del archivo de entrada así
+// como la operación especificada luego del arreglo, separada por un espacio.
+void feature4(FILE *fin, int **parr, int *length, char **op)
+{
+    int tbuffer=256;
 
+
+}
+//lee la quinta línea del archivo de entrada y con esta información 
+//debes configurar los valores de la
+// siguiente estructura de datos cuya dirección se pasará a la función.
+void feature6(FILE *fin, struct Obj_t *pobj_t)
+{  
+             
+    pobj_t->nombre="mateo";
+    pobj_t->cedula=1234;
+}
+// recibe la dirección en memoria de la estructura anterior y la guarda en la quinta línea del archivo de salida primero la cédula,
+// seguido por una coma y finalizando con el nombre.
+void feature7(FILE *fout ,struct Obj_t *pobj_t)
+{
+    fprintf(fout,"%s","\n");
+    fprintf(fout,"%d",pobj_t->cedula);
+    fprintf(fout,"%s",pobj_t->nombre);
+}
