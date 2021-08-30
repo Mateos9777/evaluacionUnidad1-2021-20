@@ -84,10 +84,29 @@ void feature4(FILE *fin, int **parr, int *length, char **op)
 // siguiente estructura de datos cuya dirección se pasará a la función.
 void feature6(FILE *fin, struct Obj_t *pobj_t)
 {  
-             
-    pobj_t->nombre="mateo";
-    pobj_t->cedula=1234;
+    char buffer[200];
+    char *estado =  NULL;
+    int i = 0;
+    char *token;
+    const char s[2] = ",";
+    const char e[2] = " ";
+
+    estado = fgets(buffer,sizeof(buffer),fin);
+    if(estado != NULL)
+    {
+       
+        pobj_t->nombre="mateo";
+        pobj_t->cedula=12333;
+        
+    }
+
+
+    
 }
+             
+   // pobj_t->nombre="mateo";
+   // pobj_t->cedula=1234;
+
 // recibe la dirección en memoria de la estructura anterior y la guarda en la quinta línea del archivo de salida primero la cédula,
 // seguido por una coma y finalizando con el nombre.
 void feature7(FILE *fout ,struct Obj_t *pobj_t)
