@@ -109,11 +109,72 @@ void feature4(FILE *fin, int **parr, int *length, char **op){
 
 
 }
+
+
+/*recibe la dirección del arreglo y de la operación leída en la feature anterior 
+realiza la operación y guarda el resultado en la cuarta línea del archivo de salida.
+ La operación puede ser avg, max, min correspondientes al promedio,
+ máximo o mínimo. TODOS los resultados deben ser ENTEROS, NO en punto flotante.*/
 void feature5(FILE *fout, int *parr, int length, char *op)
 {
+        int suma = 0;
+        int contador=0;
+
+    //condicional para promedio.
+      if(strcmp(op,"avg")==0)
+        {
+        for(contador = 0;contador < length -1;contador++)
+        {
+            suma = suma + parr[contador];
+            //printf("%d\n",suma); Observamos comportamiento de suma para verificar operacion.
+        }
+        fprintf(fout,"%d\n",(suma/(length-1)));        
+    }
+
+    //Condicional para calcular el minimo
+    else if(strcmp(op,"min")==0)
+        { 
+        int minimo = 1000;
+        for(contador=0; contador< length - 1;contador++){
+            if(parr[contador] < minimo)
+            {
+                minimo = parr[contador];
+                //printf("%d\n",minimo); Observamos comportamiento minimo
+            }
+        }
+        fprintf(fout,"%d\n",minimo);        
+    }
+
+    //Condicional para el maximo
+    else if(strcmp(op,"max")==0)
+        {
+        int maximo = -1000;
+        for(contador=0; contador< length - 1;contador++){
+            if(parr[contador] > maximo){
+                maximo = parr[contador];
+            }
+        }
+        fprintf(fout,"%d\n",maximo);        
+    }
+    //Else para sacarnos mensaje de error de operacion.
+    else{
+        fprintf(fout,"Porfavor digite una operacion valida.");
+    }
+    free(parr);//Liberamos memoria
+    free(op);//Liberamos memoria
+
 }
+
+// lee la quinta línea del archivo de entrada y con esta información debes configurar 
+//los valores de la siguiente estructura de datos cuya dirección se pasará a la
+//función.
+//Empezamos reservando con calloc el tamano que necesitamos
 void feature6(FILE *fin, struct Obj_t *pobj)
 {
+       /*char* bufer = (char *)calloc(tamano_maximo,sizeof(char));
+        char* nombre = (char *)calloc(tamano_maximo,sizeof(char));
+        pobj->nombre = (char *)calloc(tamano_maximo,sizeof(char));
+        */
 }
 void feature7(FILE *fout, struct Obj_t *pobj)
 {
