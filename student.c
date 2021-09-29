@@ -165,17 +165,29 @@ void feature5(FILE *fout, int *parr, int length, char *op)
 
 }
 
-// lee la quinta línea del archivo de entrada y con esta información debes configurar 
+//lee la quinta línea del archivo de entrada y con esta información debes configurar 
 //los valores de la siguiente estructura de datos cuya dirección se pasará a la
 //función.
 //Empezamos reservando con calloc el tamano que necesitamos
+//Tener en cuenta el 10 de base de convercion.
 void feature6(FILE *fin, struct Obj_t *pobj)
 {
-       /*char* bufer = (char *)calloc(tamano_maximo,sizeof(char));
+        char* bufer = (char *)calloc(tamano_maximo,sizeof(char));
         char* nombre = (char *)calloc(tamano_maximo,sizeof(char));
         pobj->nombre = (char *)calloc(tamano_maximo,sizeof(char));
-        */
+        char* bash;
+        
+        fgets(bufer,tamano_maximo,fin);
+        nombre = strtok(bufer,",");
+        int cedula = strtol(strtok(NULL,","),&bash,10); 
+        strcpy(pobj -> nombre,nombre);
+        pobj->cedula = cedula;
+
+       // printf("%s\n",nombre); // Se revisa que el nombre este saliendo correctamente.
+      //  printf("%d\n",cedula); // Se mira que si este sacando el numero porque no tenemos FOUT
+        free(bufer); //Liberar bufer
 }
+
 void feature7(FILE *fout, struct Obj_t *pobj)
 {
 }
