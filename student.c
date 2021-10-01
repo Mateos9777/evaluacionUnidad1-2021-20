@@ -8,20 +8,20 @@
 void feature1(FILE *fin, FILE *fout)
 {
 
-    char buffer[64];
+    char bufer[64];
     char *status = NULL;
     int cont = 0;
     do
     {
-        status = fgets(buffer, sizeof(buffer), fin);
+        status = fgets(bufer, sizeof(bufer), fin);
         cont++;
         if (status != NULL)
         {
-            fputs(buffer, fout);
+            fputs(bufer, fout);
         }
     } while (cont <= 0);
     printf("\n");
-    //free(buffer);
+    //free(bufer);
     //free(status);
 
 }
@@ -188,9 +188,15 @@ void feature6(FILE *fin, struct Obj_t *pobj)
         free(bufer); //Liberar bufer
 }
 
+//recibe la dirección en memoria de la estructura anterior 
+//y la guarda en la quinta línea del archivo de salida primero la cédula, seguido por una coma y finalizando con el nombre.
 void feature7(FILE *fout, struct Obj_t *pobj)
 {
+
+    fprintf(fout,"%d,%s\n",pobj->cedula,pobj->nombre);
+    free(pobj->nombre);
 }
+
 void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length)
 {
 }
