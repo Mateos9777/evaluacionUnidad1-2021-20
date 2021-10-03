@@ -197,9 +197,71 @@ void feature7(FILE *fout, struct Obj_t *pobj)
     free(pobj->nombre);
 }
 
+//lee la sexta línea del archivo de entrada que contiene un número entero positivo que especifica 
+//la cantidad de cursos que un estudiante cursó en un semestre. Luego solicita al usuario ingresar el nombre del curso, los créditos y la nota así:
 void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length)
 {
+    char* bufer = (char *)calloc(tamano_maximo,sizeof(char));
+    char *bash;
+    char *bash2;
+    int N=0;
+    fgets(bufer,tamano_maximo,fin);
+    N = strtol(bufer,&bash,10);
+    struct _courseInfo_t *parr = (struct _courseInfo_t *)calloc(N,sizeof(struct _courseInfo_t));
+    printf("Ingrese:\n Curso,Creditos,Nota (Recuerde separar por comas)\n");
+    for(short i=0; i<N; i++)
+    {
+        int j=0;
+        printf("Curso: %d: ",i+1);
+        fgets(bufer,tamano_maximo,stdin);
+        bash = strtok(bufer,",");
+        while(bash!=NULL){
+            if(j==0){
+                strcpy(parr[i].name,bash);
+            }else if(j==1){
+                parr[i].credits = strtol(bash,&bash2,10);
+            }
+            else if(j==2){
+                parr[i].grade= strtof(bash,&bash2);
+            }
+            j++;
+            bash = strtok(NULL,",");
+        }
+    }
+    *pobj = parr;
+    *length = N;
+    free(bufer);//liberamos el bufer
+    fclose(fin);// cerramos el archivo de entrada porque ya solo nos queda escribir en el featuree 9
 }
+
+//finalmente, calcula el promedio ponderado del semestre. Pregunta al usuario si desea almacenar 
+//la información la información en el archivo de salida así:
 void feature9(FILE *fout, struct _courseInfo_t *pobj,int length)
 {
+    char* bufer = (char*)calloc(10,sizeof(char));
+    float calificacion = 0, creditos = 0;
+    float promedio = 0.0f;
+
+    for(short i=0;i<length;i++)
+    {
+        calificacion = calificacion + pobj[i].grade*pobj[i].credits;
+        creditos = creditos + pobj[i].credits;        
+    }
+    promedio = calificacion/creditos;
+    printf("Quiere guardar? (si) o (no \n");
+    fgets(bufer,10,stdin);
+    char *tk = strtok(bufer,"\n");
+    if(strcmp(tk,"si")==0 || strcmp(tk,"SI")==0) // condicional de guardar
+    {
+        for(short i=0;i<length;i++){
+            fprintf(fout,"%s,%d,%f\n",pobj[i].name,pobj[i].credits,pobj[i].grade);            
+        }
+        fprintf(fout,"el promedio es : %f",promedio);        
+    }
+    else{
+        fprintf(fout,"el promedio es: %f",promedio);
+    }
+    free(bufer);//liberamos bufer
+    free(pobj);//liberamos pobj
+    fclose(fout);// cerramos el archivo de salida
 }
